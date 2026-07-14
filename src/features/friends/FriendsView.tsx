@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Users, Flame, CheckCircle2, Circle, AlertCircle, Heart } from "lucide-react";
-import { useTodoStore } from "../store/useTodoStore";
-import { Button } from "./ui/button";
-import { Card, CardContent } from "./ui/card";
+import { useFriendsStore } from "@/store/useFriendsStore";
+import type { ReactionType } from "@/domain/types";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function FriendsView() {
-  const { friends, sendReaction } = useTodoStore();
+  const friends = useFriendsStore((s) => s.friends);
+  const sendReaction = useFriendsStore((s) => s.sendReaction);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const triggerToast = (message: string) => {
@@ -15,9 +17,9 @@ export function FriendsView() {
     }, 2500);
   };
 
-  const handleReact = (friendId: string, name: string, type: "cheer" | "congratulate" | "remind") => {
+  const handleReact = (friendId: string, name: string, type: ReactionType) => {
     sendReaction(friendId, type);
-    
+
     let typeKorean = "";
     if (type === "cheer") typeKorean = "🔥 응원하기";
     if (type === "congratulate") typeKorean = "🎉 축하하기";
@@ -86,7 +88,7 @@ export function FriendsView() {
                 {/* Friend's Commitments List */}
                 <div className="space-y-2 bg-secondary/35 rounded-xl p-3 border border-border">
                   <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">
-                    오늘의 약속
+                    오늘의 할 일
                   </span>
                   {friend.commitments.length > 0 ? (
                     friend.commitments.map((comm, idx) => (
@@ -107,7 +109,7 @@ export function FriendsView() {
                     ))
                   ) : (
                     <div className="text-[11px] text-muted-foreground py-1 flex items-center gap-1">
-                      <AlertCircle className="size-3" /> 아직 약속을 등록하지 않았습니다.
+                      <AlertCircle className="size-3" /> 아직 할 일을 등록하지 않았습니다.
                     </div>
                   )}
                 </div>

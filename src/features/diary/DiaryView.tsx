@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { NotebookPen, Send, CalendarDays } from "lucide-react";
-import { useTodoStore } from "../store/useTodoStore";
-import { Button } from "./ui/button";
-import { Card, CardContent } from "./ui/card";
+import { useDiaryStore } from "@/store/useDiaryStore";
+import { useToday } from "@/lifecycle/hooks/useToday";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function DiaryView() {
-  const { diaries, addDiary } = useTodoStore();
+  const diaries = useDiaryStore((s) => s.diaries);
+  const addDiary = useDiaryStore((s) => s.addDiary);
+  const today = useToday();
   const [diaryText, setDiaryText] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!diaryText.trim()) return;
-    addDiary(diaryText.trim());
+    addDiary(diaryText.trim(), today);
     setDiaryText("");
   };
 

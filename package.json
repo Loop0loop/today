@@ -9,6 +9,8 @@
     "build": "tsc && vite build",
     "check": "tsc --noEmit && node --test tests/*.test.ts && cargo check --manifest-path src-tauri/Cargo.toml",
     "clean:rust": "cargo clean --manifest-path src-tauri/Cargo.toml",
+    "db:reset": "supabase db reset --local --no-seed",
+    "db:test": "supabase test db --local supabase/tests/database",
     "preview": "vite preview",
     "supabase": "supabase",
     "tauri": "tauri",

@@ -1,34 +1,17 @@
 import { useMemo } from "react";
 import { BarChart3, Flame, Award, Calendar, AlertTriangle } from "lucide-react";
-import { useTodoStore } from "../store/useTodoStore";
-import {
-  commitmentStreak,
-  weeklyConsistency,
-  commitmentActivity,
-  calendarDateInTimeZone,
-} from "../domain/task";
-import { Card, CardContent } from "./ui/card";
+import { useCurrentStreak } from "@/hooks/useCurrentStreak";
+import { useWeeklyConsistency } from "@/hooks/useWeeklyConsistency";
+import { useCommitmentActivity } from "@/hooks/useCommitmentActivity";
+import { Card, CardContent } from "@/components/ui/card";
+
+// TODO: weekStart는 현재 하드코딩되어 있음. 주간 경계 계산으로 교체 필요 (원본 동작 보존).
+const WEEK_START = "2026-07-12";
 
 export function HistoryView() {
-  const { commitmentHistory, restWeekdays } = useTodoStore();
-
-  const todayStr = useMemo(() => {
-    return calendarDateInTimeZone(new Date(), "Asia/Seoul");
-  }, []);
-
-  const currentStreak = useMemo(() => {
-    return commitmentStreak(commitmentHistory, todayStr, restWeekdays);
-  }, [commitmentHistory, todayStr, restWeekdays]);
-
-  const weekStartStr = "2026-07-12";
-  const consistencyRate = useMemo(() => {
-    return weeklyConsistency(commitmentHistory, weekStartStr);
-  }, [commitmentHistory, weekStartStr]);
-
-  const activityMap = useMemo(() => {
-    const list = commitmentActivity(commitmentHistory);
-    return new Map(list.map((a) => [a.date, a]));
-  }, [commitmentHistory]);
+  const currentStreak = useCurrentStreak();
+  const consistencyRate = useWeeklyConsistency(WEEK_START);
+  const activityMap = useCommitmentActivity();
 
   const gridCells = useMemo(() => {
     const cells = [];
@@ -40,7 +23,7 @@ export function HistoryView() {
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
       const dateStr = `${year}-${month}-${day}`;
-      
+
       const activity = activityMap.get(dateStr);
       cells.push({
         dateStr,
@@ -52,18 +35,18 @@ export function HistoryView() {
 
   const getCellColor = (rate: number | undefined, planned: number | undefined) => {
     if (planned === undefined || planned === 0) {
-      return "bg-secondary/35 dark:bg-zinc-900/30 hover:opacity-80"; 
+      return "bg-secondary/35 dark:bg-zinc-900/30 hover:opacity-80";
     }
     if (rate === 0) {
-      return "bg-secondary/60 dark:bg-zinc-800/40 hover:opacity-80";    
+      return "bg-secondary/60 dark:bg-zinc-800/40 hover:opacity-80";
     }
     if (rate! < 50) {
-      return "bg-secondary dark:bg-zinc-800/80 hover:opacity-80";    
+      return "bg-secondary dark:bg-zinc-800/80 hover:opacity-80";
     }
     if (rate! < 100) {
-      return "bg-muted-foreground/60 dark:bg-zinc-650 hover:opacity-80";   
+      return "bg-muted-foreground/60 dark:bg-zinc-65 hover:opacity-80";
     }
-    return "bg-primary dark:bg-white hover:opacity-80";        
+    return "bg-primary dark:bg-white hover:opacity-80";
   };
 
   const failPatterns = [
@@ -95,7 +78,7 @@ export function HistoryView() {
             </div>
             <div>
               <span className="text-[10px] font-bold text-muted-foreground block uppercase">
-                현재 약속 스트릭
+                현재 완료 스트릭
               </span>
               <span className="text-xl font-bold text-foreground">{currentStreak}일 연속</span>
             </div>
@@ -109,7 +92,7 @@ export function HistoryView() {
             </div>
             <div>
               <span className="text-[10px] font-bold text-muted-foreground block uppercase">
-                이번 주 약속 일관성
+                이번 주 완료 일관성
               </span>
               <span className="text-xl font-bold text-foreground">{consistencyRate}%</span>
             </div>
@@ -137,7 +120,7 @@ export function HistoryView() {
       <Card className="border border-border/80 shadow-none bg-card">
         <CardContent className="p-4 sm:p-5 space-y-4">
           <span className="text-xs font-semibold text-foreground block">
-            연간 핵심 약속 이행률
+            연간 완료 이행률
           </span>
 
           <div className="overflow-x-auto pb-2">
@@ -166,7 +149,7 @@ export function HistoryView() {
               <div className="size-2 rounded-[1.5px] bg-secondary/35 dark:bg-zinc-900/30" />
               <div className="size-2 rounded-[1.5px] bg-secondary/60 dark:bg-zinc-800/40" />
               <div className="size-2 rounded-[1.5px] bg-secondary dark:bg-zinc-850" />
-              <div className="size-2 rounded-[1.5px] bg-muted-foreground/60 dark:bg-zinc-650" />
+              <div className="size-2 rounded-[1.5px] bg-muted-foreground/60 dark:bg-zinc-65" />
               <div className="size-2 rounded-[1.5px] bg-primary dark:bg-white" />
               <span>높음</span>
             </div>

@@ -1,18 +1,16 @@
 import React from "react";
 import { UserRound, Coffee, Bell, ShieldCheck, SunMoon } from "lucide-react";
-import { useTodoStore } from "../store/useTodoStore";
-import { Card, CardContent } from "./ui/card";
+import { useSettingsStore } from "@/store/useSettingsStore";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function ProfileView() {
-  const {
-    restWeekdays,
-    remindCount,
-    remindTime,
-    theme,
-    toggleRestWeekday,
-    setRemindSettings,
-    setTheme,
-  } = useTodoStore();
+  const restWeekdays = useSettingsStore((s) => s.restWeekdays);
+  const remindCount = useSettingsStore((s) => s.remindCount);
+  const remindTime = useSettingsStore((s) => s.remindTime);
+  const theme = useSettingsStore((s) => s.theme);
+  const toggleRestWeekday = useSettingsStore((s) => s.toggleRestWeekday);
+  const setRemindSettings = useSettingsStore((s) => s.setRemindSettings);
+  const setTheme = useSettingsStore((s) => s.setTheme);
 
   const weekdays = [
     { label: "일", value: 0 },
