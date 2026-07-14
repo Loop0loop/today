@@ -1,0 +1,182 @@
+{
+  "common": {
+    "cancel": "キャンセル",
+    "add": "追加",
+    "delete": "削除",
+    "close": "閉じる",
+    "today": "今日",
+    "completed": "完了"
+  },
+  "nav": {
+    "today": "Today",
+    "friends": "フレンド",
+    "history": "記録",
+    "diary": "日記",
+    "profile": "設定",
+    "ariaLabel": "下部ナビゲーション"
+  },
+  "header": {
+    "title": {
+      "today": "今日を軽く始めよう",
+      "friends": "一緒に行動を促そう",
+      "history": "私たちの足跡",
+      "diary": "今日の振り返り",
+      "profile": "設定とプロフィール"
+    },
+    "streakSuffix": "日目",
+    "openOptions": "オプションメニューを開く"
+  },
+  "today": {
+    "profile": {
+      "initial": "オム",
+      "name": "オム・セフン",
+      "subtitle": "Today First",
+      "diaryButtonTitle": "日記タブに移動して作成",
+      "diaryButtonAria": "日記作成画面へ移動"
+    },
+    "tasksHeader": "{{date}} のタスク",
+    "generalAddTitle": "一般タスクを追加",
+    "generalAddAria": "一般タスクを追加",
+    "rollover": {
+      "count": "昨日の未完了タスク {{count}}件",
+      "hide": "隠す",
+      "resolve": "整理する",
+      "today": "今日",
+      "someday": "いつか",
+      "abandon": "中止"
+    },
+    "categoryAddTitle": "{{name}} カテゴリにタスクを追加",
+    "deleteAria": "タスクを削除",
+    "generalSection": "一般タスク",
+    "emptyState": "選択された日付のタスクがありません。",
+    "modal": {
+      "title": "タスクを追加 ({{context}})",
+      "contextCategory": "{{tag}} カテゴリ",
+      "nameLabel": "タスク名",
+      "placeholderCategory": "{{tag}} タスクを入力...",
+      "placeholderDefault": "何をしますか?"
+    }
+  },
+  "calendar": {
+    "weekdays": ["月", "火", "水", "木", "金", "土", "日"],
+    "prevMonthAria": "前の月",
+    "nextMonthAria": "次の月",
+    "goToToday": "今日",
+    "monthTitle": "{{year}}年 {{month}}月",
+    "monthDayFormat": "{{month}}月 {{day}}日"
+  },
+  "friends": {
+    "header": "責任グループフィード",
+    "subheader": "お互いの目標を応援し、合図して行動を促してみましょう。(2〜5名限定)",
+    "streakSuffix": "日目",
+    "consistencyLabel": "一貫性",
+    "progressFormat": "{{completed}} / {{total}} 完了 ({{rate}}%)",
+    "todayTasks": "今日のタスク",
+    "emptyTasks": "まだタスクが登録されていません。",
+    "reaction": {
+      "cheer": "🔥 応援",
+      "cheerSent": "🔥 完了",
+      "congratulate": "🎉 祝福",
+      "congratulateSent": "🎉 完了",
+      "remind": "⏰ リマインド",
+      "remindSent": "⏰ 完了",
+      "toastCheer": "🔥 応援する",
+      "toastCongratulate": "🎉 祝福する",
+      "toastRemind": "⏰ 合図を送る",
+      "toast": "{{name}}さんに{{type}}を送りました!"
+    }
+  },
+  "history": {
+    "header": "成果とレポート",
+    "subheader": "完了数ではありません。約束を守る堅牢さと障害要因を分析します。",
+    "stats": {
+      "currentStreak": "現在の完了ストリーク",
+      "streakValue": "{{count}}日連続",
+      "weeklyConsistency": "今週の完了一貫性",
+      "activeDays": "記録された活動日数",
+      "activeDaysValue": "{{count}}日"
+    },
+    "heatmap": {
+      "title": "年間完了達成率",
+      "noPlan": "計画なし",
+      "rangeStart": "364日前",
+      "rangeEnd": "今日",
+      "legendLow": "低",
+      "legendHigh": "高"
+    },
+    "failPatternTitle": "よく発生する核心障害要因",
+    "failPatterns": {
+      "overplanning": "過度な計画立案",
+      "condition": "コンディション調整失敗",
+      "meeting": "予期しないミーティング",
+      "other": "その他の理由"
+    }
+  },
+  "diary": {
+    "header": "今日の一行振り返り",
+    "subheader": "成功も失敗も良い行動です。今日はどうでしたか?",
+    "textareaAria": "今日の一行振り返りを入力",
+    "placeholder": "今日終えた約束の感想、あるいは先延ばしにした約束の理由を気軽に書いてみてください...",
+    "submit": "登録する",
+    "timelineHeader": "振り返りタイムライン ({{count}})"
+  },
+  "profile": {
+    "header": "設定と情報",
+    "subheader": "自分のペースで約束を続けられるよう、休み曜日や通知を調整します。",
+    "profileInitial": "ミン",
+    "profileName": "ミン (プロトタイプアカウント)",
+    "badgeLocalMode": "ローカルモード動作中",
+    "theme": {
+      "title": "画面テーマ設定",
+      "description": "アプリの画面カラーテーマを選択します。システム選択時はOS設定に従います。",
+      "light": "ライト",
+      "dark": "ダーク",
+      "system": "システム"
+    },
+    "language": {
+      "title": "言語設定",
+      "description": "アプリの表示言語を選択します。変更はすぐに適用されます。",
+      "ko": "한국어",
+      "ja": "日本語",
+      "en": "English"
+    },
+    "restDays": {
+      "title": "休み曜日指定",
+      "description": "休み曜日に指定された日は、今日の約束を登録しなくてもストリークが途切れません。",
+      "weekdays": ["日", "月", "火", "水", "木", "金", "土"]
+    },
+    "remind": {
+      "title": "リマインド通知調整",
+      "countLabel": "一日の許容回数",
+      "countOptions": {
+        "1": "一日最大1回",
+        "2": "一日最大2回",
+        "3": "一日最大3回",
+        "5": "一日最大5回"
+      },
+      "timeLabel": "通知不許可の時間帯",
+      "timeOptions": {
+        "09:00 - 21:00": "21:00 ~ 09:00 (夜・早朝制限)",
+        "09:00 - 18:00": "18:00 ~ 09:00 (夕方制限)",
+        "24hours": "制限なし (24時間許可)"
+      }
+    }
+  },
+  "options": {
+    "header": "オプション設定と管理",
+    "closeAria": "オプションバーを閉じる",
+    "routines": {
+      "title": "固定ルーティンの繰り返し管理",
+      "seed": {
+        "r1": "毎朝30分ジョギング",
+        "r2": "語彙30個暗記",
+        "r3": "毎日1コミット完了"
+      }
+    },
+    "spaces": {
+      "title": "カテゴリスペース管理",
+      "newPlaceholder": "新しいカテゴリ..."
+    },
+    "banner": "ローカルオプションがリアルタイム適用中です。"
+  }
+}

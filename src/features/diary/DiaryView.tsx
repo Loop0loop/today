@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { NotebookPen, Send, CalendarDays } from "lucide-react";
 import { useDiaryStore } from "@/store/useDiaryStore";
 import { useToday } from "@/lifecycle/hooks/useToday";
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export function DiaryView() {
+  const { t } = useTranslation();
   const diaries = useDiaryStore((s) => s.diaries);
   const addDiary = useDiaryStore((s) => s.addDiary);
   const today = useToday();
@@ -24,10 +26,10 @@ export function DiaryView() {
       <div>
         <h2 className="text-base font-semibold tracking-tight text-foreground flex items-center gap-1.5">
           <NotebookPen className="size-4.5 text-foreground" />
-          오늘 한 줄 회고
+          {t("diary.header")}
         </h2>
         <p className="text-xs text-muted-foreground mt-1">
-          성공이나 실패 모두 좋은 행동입니다. 오늘 하루는 어땠나요?
+          {t("diary.subheader")}
         </p>
       </div>
 
@@ -36,10 +38,10 @@ export function DiaryView() {
         <CardContent className="p-4 sm:p-5">
           <form className="space-y-3" onSubmit={handleSubmit}>
             <textarea
-              aria-label="오늘 한 줄 회고 입력"
+              aria-label={t("diary.textareaAria")}
               value={diaryText}
               onChange={(e) => setDiaryText(e.target.value)}
-              placeholder="오늘 끝낸 약속의 소감, 혹은 미룬 약속의 이유를 가볍게 적어보세요..."
+              placeholder={t("diary.placeholder")}
               rows={3}
               className="w-full resize-none rounded-xl border border-border bg-secondary/35 p-3 text-sm text-foreground focus:border-zinc-400 focus:bg-card focus:outline-none focus:ring-1 focus:ring-zinc-450"
             />
@@ -50,7 +52,7 @@ export function DiaryView() {
                 className="bg-foreground text-background hover:opacity-90 flex items-center gap-1 text-xs cursor-pointer shadow-xs"
                 disabled={!diaryText.trim()}
               >
-                <Send className="size-3" /> 등록하기
+                <Send className="size-3" /> {t("diary.submit")}
               </Button>
             </div>
           </form>
@@ -60,7 +62,7 @@ export function DiaryView() {
       {/* Diary List */}
       <div className="space-y-4">
         <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
-          회고 타임라인 ({diaries.length})
+          {t("diary.timelineHeader", { count: diaries.length })}
         </h3>
 
         <div className="space-y-3">

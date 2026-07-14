@@ -1,0 +1,182 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "add": "Add",
+    "delete": "Delete",
+    "close": "Close",
+    "today": "Today",
+    "completed": "Done"
+  },
+  "nav": {
+    "today": "Today",
+    "friends": "Friends",
+    "history": "History",
+    "diary": "Diary",
+    "profile": "Settings",
+    "ariaLabel": "Bottom navigation"
+  },
+  "header": {
+    "title": {
+      "today": "Start today lightly",
+      "friends": "Prompt action together",
+      "history": "Our footprints",
+      "diary": "Today's reflection",
+      "profile": "Settings & profile"
+    },
+    "streakSuffix": "days",
+    "openOptions": "Open options menu"
+  },
+  "today": {
+    "profile": {
+      "initial": "E",
+      "name": "Eom Sehun",
+      "subtitle": "Today First",
+      "diaryButtonTitle": "Go to Diary tab to write",
+      "diaryButtonAria": "Go to diary writing screen"
+    },
+    "tasksHeader": "Tasks for {{date}}",
+    "generalAddTitle": "Add general task",
+    "generalAddAria": "Add general task",
+    "rollover": {
+      "count": "{{count}} unfinished task(s) from yesterday",
+      "hide": "Hide",
+      "resolve": "Resolve",
+      "today": "Today",
+      "someday": "Someday",
+      "abandon": "Abandon"
+    },
+    "categoryAddTitle": "Add task to {{name}} category",
+    "deleteAria": "Delete task",
+    "generalSection": "General tasks",
+    "emptyState": "No tasks for the selected date.",
+    "modal": {
+      "title": "Add task ({{context}})",
+      "contextCategory": "{{tag}} category",
+      "nameLabel": "Task name",
+      "placeholderCategory": "Enter {{tag}} task...",
+      "placeholderDefault": "What do you need to do?"
+    }
+  },
+  "calendar": {
+    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "prevMonthAria": "Previous month",
+    "nextMonthAria": "Next month",
+    "goToToday": "Today",
+    "monthTitle": "{{month}} {{year}}",
+    "monthDayFormat": "{{month}}/{{day}}"
+  },
+  "friends": {
+    "header": "Accountability group feed",
+    "subheader": "Cheer each other's goals and nudge to prompt action. (2-5 members)",
+    "streakSuffix": "days",
+    "consistencyLabel": "Consistency",
+    "progressFormat": "{{completed}} / {{total}} done ({{rate}}%)",
+    "todayTasks": "Today's tasks",
+    "emptyTasks": "No tasks registered yet.",
+    "reaction": {
+      "cheer": "🔥 Cheer",
+      "cheerSent": "🔥 Done",
+      "congratulate": "🎉 Celebrate",
+      "congratulateSent": "🎉 Done",
+      "remind": "⏰ Remind",
+      "remindSent": "⏰ Done",
+      "toastCheer": "🔥 Cheer",
+      "toastCongratulate": "🎉 Celebrate",
+      "toastRemind": "⏰ Nudge",
+      "toast": "Sent {{type}} to {{name}}!"
+    }
+  },
+  "history": {
+    "header": "Performance & report",
+    "subheader": "Not completion counts. We analyze consistency in keeping promises and obstacles.",
+    "stats": {
+      "currentStreak": "Current completion streak",
+      "streakValue": "{{count}}-day streak",
+      "weeklyConsistency": "This week's consistency",
+      "activeDays": "Recorded active days",
+      "activeDaysValue": "{{count}} days"
+    },
+    "heatmap": {
+      "title": "Yearly completion rate",
+      "noPlan": "No plan",
+      "rangeStart": "364 days ago",
+      "rangeEnd": "Today",
+      "legendLow": "Low",
+      "legendHigh": "High"
+    },
+    "failPatternTitle": "Frequent core obstacles",
+    "failPatterns": {
+      "overplanning": "Overplanning",
+      "condition": "Condition management failure",
+      "meeting": "Unexpected meeting",
+      "other": "Other reasons"
+    }
+  },
+  "diary": {
+    "header": "Today's one-line reflection",
+    "subheader": "Both success and failure are good actions. How was your day?",
+    "textareaAria": "Enter today's one-line reflection",
+    "placeholder": "Lightly write your thoughts on a promise you kept, or the reason you postponed one...",
+    "submit": "Submit",
+    "timelineHeader": "Reflection timeline ({{count}})"
+  },
+  "profile": {
+    "header": "Settings & info",
+    "subheader": "Adjust rest days and reminders to keep promises at your own pace.",
+    "profileInitial": "M",
+    "profileName": "Min (prototype account)",
+    "badgeLocalMode": "Running in local mode",
+    "theme": {
+      "title": "Theme settings",
+      "description": "Choose the app's color theme. System follows your OS setting.",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Choose the app's display language. Changes apply immediately.",
+      "ko": "한국어",
+      "ja": "日本語",
+      "en": "English"
+    },
+    "restDays": {
+      "title": "Rest days",
+      "description": "On rest days, your streak won't break even if you don't set any promises.",
+      "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    },
+    "remind": {
+      "title": "Reminder settings",
+      "countLabel": "Daily allowed count",
+      "countOptions": {
+        "1": "Up to 1 per day",
+        "2": "Up to 2 per day",
+        "3": "Up to 3 per day",
+        "5": "Up to 5 per day"
+      },
+      "timeLabel": "Mute hours",
+      "timeOptions": {
+        "09:00 - 21:00": "21:00 ~ 09:00 (night/early morning muted)",
+        "09:00 - 18:00": "18:00 ~ 09:00 (evening muted)",
+        "24hours": "No limit (24h allowed)"
+      }
+    }
+  },
+  "options": {
+    "header": "Options & management",
+    "closeAria": "Close options bar",
+    "routines": {
+      "title": "Fixed routine management",
+      "seed": {
+        "r1": "30-min morning jog daily",
+        "r2": "Memorize 30 vocabulary words",
+        "r3": "Daily 1 commit"
+      }
+    },
+    "spaces": {
+      "title": "Category space management",
+      "newPlaceholder": "New category..."
+    },
+    "banner": "Local options applied in real time."
+  }
+}

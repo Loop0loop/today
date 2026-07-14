@@ -1,4 +1,5 @@
 // 앱 레이아웃 컨테이너. 햄버거 버튼 + main(헤더/뷰) + 네비 + 옵션 서랍을 배치.
+import { useTranslation } from "react-i18next";
 import { Menu } from "lucide-react";
 import { useUiStore } from "@/store/useUiStore";
 import { AppHeader } from "./AppHeader";
@@ -7,6 +8,7 @@ import { OptionDrawer } from "./OptionDrawer";
 import { ViewRouter } from "./ViewRouter";
 
 export function AppShell() {
+  const { t } = useTranslation();
   const setOptionBarOpen = useUiStore((s) => s.setOptionBarOpen);
 
   return (
@@ -15,8 +17,8 @@ export function AppShell() {
       <button
         onClick={() => setOptionBarOpen(true)}
         className="fixed top-[-11px] right-5 z-40 p-1.5 rounded-full bg-card/65 border border-border/80 hover:bg-secondary text-zinc-400 hover:text-foreground transition-all cursor-pointer shadow-xs backdrop-blur-md"
-        title="옵션 메뉴 열기"
-        aria-label="옵션 메뉴 열기"
+        title={t("header.openOptions")}
+        aria-label={t("header.openOptions")}
       >
         <Menu className="size-5.5 stroke-[2.5px]" />
       </button>

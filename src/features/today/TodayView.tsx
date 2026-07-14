@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Check,
   Plus,
@@ -10,12 +11,15 @@ import {
 } from "lucide-react";
 import { useTaskStore } from "@/store/useTaskStore";
 import { useUiStore } from "@/store/useUiStore";
+import { useSettingsStore } from "@/store/useSettingsStore";
 import { useToday } from "@/lifecycle/hooks/useToday";
 import type { TodoTag } from "@/domain/types";
+import { formatMonthDay } from "@/lib/date";
 import { Input } from "@/components/ui/input";
 import { MonthlyCalendar } from "./MonthlyCalendar";
 
 export function TodayView() {
+  const { t } = useTranslation();
   const tasks = useTaskStore((s) => s.tasks);
   const rolloverTasks = useTaskStore((s) => s.rolloverTasks);
   const addTask = useTaskStore((s) => s.addTask);
@@ -25,6 +29,7 @@ export function TodayView() {
 
   const selectedDate = useUiStore((s) => s.selectedDate);
   const setCurrentTab = useUiStore((s) => s.setCurrentTab);
+  const language = useSettingsStore((s) => s.language);
   const today = useToday();
 
   // Todo Modal State
@@ -38,7 +43,7 @@ export function TodayView() {
 
   // Filter tasks by selectedDate
   const filteredTasks = useMemo(() => {
-    return tasks.filter((t) => t.date === selectedDate);
+    return tasks.filter((tk) => tk.date === selectedDate);
   }, [tasks, selectedDate]);
 
   const handleAddTodoSubmit = (e: React.FormEvent) => {
@@ -54,8 +59,8 @@ export function TodayView() {
   const formattedSelectedDate = useMemo(() => {
     const parts = selectedDate.split("-").map(Number);
     if (parts.length !== 3) return selectedDate;
-    return `${parts[1]}월 ${parts[2]}일`;
-  }, [selectedDate]);
+    return formatMonthDay(parts[0], parts[1], parts[2], language);
+  }, [selectedDate, language]);
 
   // Grouped tasks helper
   const tasksByTag = useMemo(() => {
@@ -67,11 +72,11 @@ export function TodayView() {
       none: [],
     };
 
-    filteredTasks.forEach((t) => {
-      if (t.tag) {
-        groups[t.tag].push(t);
+    filteredTasks.forEach((tk) => {
+      if (tk.tag) {
+        groups[tk.tag].push(tk);
       } else {
-        groups.none.push(t);
+        groups.none.push(tk);
       }
     });
 
@@ -96,11 +101,15 @@ export function TodayView() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="size-9 rounded-full bg-secondary flex items-center justify-center font-bold text-muted-foreground text-sm shrink-0 select-none">
-              엄
+              {t("today.profile.initial")}
             </div>
             <div>
-              <h2 className="text-sm font-bold text-foreground tracking-tight">엄세훈</h2>
-              <p className="text-[10px] text-muted-foreground mt-0.5">Today First</p>
+              <h2 className="text-sm font-bold text-foreground tracking-tight">
+                {t("today.profile.name")}
+              </h2>
+              <p className="text-[10px] text-muted-foreground mt-0.5">
+                {t("today.profile.subtitle")}
+              </p>
             </div>
           </div>
 
@@ -108,8 +117,8 @@ export function TodayView() {
           <button
             onClick={() => setCurrentTab("diary")}
             className="size-8 rounded-full bg-secondary hover:bg-border text-foreground flex items-center justify-center shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-            title="일기 탭으로 이동하여 작성"
-            aria-label="일기 작성 화면 이동"
+            title={t("today.profile.diaryButtonTitle")}
+            aria-label={t("today.profile.diaryButtonAria")}
           >
             <NotebookPen className="size-4 stroke-[2px]" />
           </button>
@@ -127,7 +136,7 @@ export function TodayView() {
         {/* Selected Date Header indicator */}
         <div className="flex items-center justify-between border-b border-border pb-2">
           <span className="text-xs font-bold text-primary uppercase tracking-wider block">
-            {formattedSelectedDate} 할 일
+            {t("today.tasksHeader", { date: formattedSelectedDate })}
           </span>
 
           <div className="flex items-center gap-2">
@@ -138,8 +147,8 @@ export function TodayView() {
                 setIsTodoModalOpen(true);
               }}
               className="size-7 rounded-full bg-foreground text-background flex items-center justify-center shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer"
-              title="일반 할 일 추가"
-              aria-label="일반 할 일 추가"
+              title={t("today.generalAddTitle")}
+              aria-label={t("today.generalAddAria")}
             >
               <Plus className="size-4 stroke-[2.5px]" />
             </button>
@@ -153,14 +162,14 @@ export function TodayView() {
               <div className="flex items-center gap-2">
                 <AlertCircle className="size-4 text-amber-500/80 shrink-0" />
                 <span className="text-[10px] font-bold text-muted-foreground">
-                  어제 미완료 할 일 {pendingRollovers.length}개
+                  {t("today.rollover.count", { count: pendingRollovers.length })}
                 </span>
               </div>
               <button
                 className="text-[9px] font-bold text-muted-foreground hover:text-foreground"
                 onClick={() => setIsRolloverExpanded(!isRolloverExpanded)}
               >
-                {isRolloverExpanded ? "숨기기" : "정리하기"}
+                {isRolloverExpanded ? t("today.rollover.hide") : t("today.rollover.resolve")}
               </button>
             </div>
 
@@ -174,19 +183,19 @@ export function TodayView() {
                         className="text-[9px] font-bold text-muted-foreground hover:text-foreground bg-secondary px-2 py-0.5 rounded"
                         onClick={() => resolveRollover(item.id, { type: "today", nextDate: "" }, today)}
                       >
-                        오늘
+                        {t("today.rollover.today")}
                       </button>
                       <button
                         className="text-[9px] font-bold text-muted-foreground hover:text-foreground bg-secondary px-2 py-0.5 rounded"
                         onClick={() => resolveRollover(item.id, { type: "someday" }, today)}
                       >
-                        언젠가
+                        {t("today.rollover.someday")}
                       </button>
                       <button
                         className="text-[9px] font-bold text-rose-500 hover:text-rose-450 bg-secondary px-2 py-0.5 rounded"
                         onClick={() => resolveRollover(item.id, { type: "abandon" }, today)}
                       >
-                        포기
+                        {t("today.rollover.abandon")}
                       </button>
                     </div>
                   </div>
@@ -222,7 +231,7 @@ export function TodayView() {
                           setIsTodoModalOpen(true);
                         }}
                         className="size-5 rounded-full bg-zinc-950 text-white flex items-center justify-center hover:scale-105 active:scale-95 cursor-pointer border border-zinc-850"
-                        title={`${space.name} 카테고리에 할 일 추가`}
+                        title={t("today.categoryAddTitle", { name: space.name })}
                       >
                         <Plus className="size-2.5 stroke-[2.5px]" />
                       </button>
@@ -258,7 +267,7 @@ export function TodayView() {
                           <button
                             onClick={() => deleteTask(task.id)}
                             className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-rose-500 transition-all p-0.5 shrink-0"
-                            aria-label="할 일 삭제"
+                            aria-label={t("today.deleteAria")}
                           >
                             <Trash2 className="size-3.5" />
                           </button>
@@ -274,7 +283,7 @@ export function TodayView() {
                 <div className="space-y-2.5 pt-1.5">
                   <div className="flex items-center gap-1.5 select-none pl-1">
                     <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                      일반 할 일
+                      {t("today.generalSection")}
                     </span>
                   </div>
 
@@ -307,7 +316,7 @@ export function TodayView() {
                         <button
                           onClick={() => deleteTask(task.id)}
                           className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-rose-500 transition-all p-0.5 shrink-0"
-                          aria-label="할 일 삭제"
+                          aria-label={t("today.deleteAria")}
                         >
                           <Trash2 className="size-3.5" />
                         </button>
@@ -320,7 +329,7 @@ export function TodayView() {
             </div>
           ) : (
             <div className="py-16 text-center text-xs font-semibold text-muted-foreground select-none border border-dashed border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl bg-card/25 animate-in fade-in">
-              선택된 날짜의 할 일이 없습니다.
+              {t("today.emptyState")}
             </div>
           )}
         </section>
@@ -332,7 +341,11 @@ export function TodayView() {
           <div className="w-full max-w-xs bg-card border border-border/80 p-4.5 rounded-3xl space-y-4 shadow-2xl animate-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-bold text-primary uppercase tracking-wider">
-                할 일 추가 ({selectedTag ? `${selectedTag} 카테고리` : formattedSelectedDate})
+                {t("today.modal.title", {
+                  context: selectedTag
+                    ? t("today.modal.contextCategory", { tag: selectedTag })
+                    : formattedSelectedDate,
+                })}
               </span>
               <button
                 onClick={() => {
@@ -341,7 +354,7 @@ export function TodayView() {
                   setSelectedTag(null);
                 }}
                 className="p-1 rounded-full hover:bg-secondary text-muted-foreground hover:text-foreground transition-all cursor-pointer"
-                aria-label="닫기"
+                aria-label={t("common.close")}
               >
                 <X className="size-4" />
               </button>
@@ -349,13 +362,19 @@ export function TodayView() {
 
             <form onSubmit={handleAddTodoSubmit} className="space-y-4">
               <div className="space-y-1">
-                <label htmlFor="todo-name" className="text-[9px] font-bold text-muted-foreground uppercase">할 일 이름</label>
+                <label htmlFor="todo-name" className="text-[9px] font-bold text-muted-foreground uppercase">
+                  {t("today.modal.nameLabel")}
+                </label>
                 <Input
                   id="todo-name"
                   autoFocus
                   value={newTodoText}
                   onChange={(e) => setNewTodoText(e.target.value)}
-                  placeholder={selectedTag ? `${selectedTag} 할 일 입력...` : "무엇을 해야 하나요?"}
+                  placeholder={
+                    selectedTag
+                      ? t("today.modal.placeholderCategory", { tag: selectedTag })
+                      : t("today.modal.placeholderDefault")
+                  }
                   className="h-10 border-border bg-secondary/30 px-3.5 text-xs text-foreground focus-visible:ring-primary shadow-none"
                 />
               </div>
@@ -370,14 +389,14 @@ export function TodayView() {
                   }}
                   className="px-3.5 py-1.5 text-[11px] font-semibold text-muted-foreground hover:text-foreground rounded-lg border border-border bg-secondary/20 hover:bg-secondary/40 cursor-pointer"
                 >
-                  취소
+                  {t("common.cancel")}
                 </button>
                 <button
                   type="submit"
                   disabled={!newTodoText.trim()}
                   className="px-4 py-1.5 text-[11px] font-bold text-background bg-foreground hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg shadow-sm cursor-pointer"
                 >
-                  추가
+                  {t("common.add")}
                 </button>
               </div>
             </form>

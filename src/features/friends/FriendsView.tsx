@@ -1,11 +1,19 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Users, Flame, CheckCircle2, Circle, AlertCircle, Heart } from "lucide-react";
 import { useFriendsStore } from "@/store/useFriendsStore";
 import type { ReactionType } from "@/domain/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
+const TOAST_TYPE_KEY: Record<ReactionType, string> = {
+  cheer: "friends.reaction.toastCheer",
+  congratulate: "friends.reaction.toastCongratulate",
+  remind: "friends.reaction.toastRemind",
+};
+
 export function FriendsView() {
+  const { t } = useTranslation();
   const friends = useFriendsStore((s) => s.friends);
   const sendReaction = useFriendsStore((s) => s.sendReaction);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -19,13 +27,9 @@ export function FriendsView() {
 
   const handleReact = (friendId: string, name: string, type: ReactionType) => {
     sendReaction(friendId, type);
-
-    let typeKorean = "";
-    if (type === "cheer") typeKorean = "🔥 응원하기";
-    if (type === "congratulate") typeKorean = "🎉 축하하기";
-    if (type === "remind") typeKorean = "⏰ 콕 찌르기";
-
-    triggerToast(`${name}님에게 ${typeKorean}를 보냈습니다!`);
+    triggerToast(
+      t("friends.reaction.toast", { name, type: t(TOAST_TYPE_KEY[type]) }),
+    );
   };
 
   return (
@@ -42,10 +46,10 @@ export function FriendsView() {
       <div>
         <h2 className="text-base font-semibold tracking-tight text-foreground flex items-center gap-1.5">
           <Users className="size-4.5 text-foreground" />
-          책임 그룹 피드
+          {t("friends.header")}
         </h2>
         <p className="text-xs text-muted-foreground mt-1">
-          서로의 목표를 응원하고 콕 찔러서 행동을 유도해보세요. (2~5명 제한)
+          {t("friends.subheader")}
         </p>
       </div>
 
@@ -70,25 +74,30 @@ export function FriendsView() {
                       <div className="flex items-center gap-2 mt-1">
                         <span className="flex items-center gap-0.5 text-[11px] font-semibold text-muted-foreground">
                           <Flame className="size-3 text-orange-500 fill-current" />
-                          {friend.streak}일째
+                          {friend.streak}
+                          {t("friends.streakSuffix")}
                         </span>
                         <span className="text-[10px] text-border">|</span>
                         <span className="text-[11px] font-semibold text-muted-foreground">
-                          일관성 {friend.consistency}%
+                          {t("friends.consistencyLabel")} {friend.consistency}%
                         </span>
                       </div>
                     </div>
                   </div>
 
                   <span className="text-xs font-semibold text-muted-foreground">
-                    {completedCount} / {totalCount} 완료 ({progressRate}%)
+                    {t("friends.progressFormat", {
+                      completed: completedCount,
+                      total: totalCount,
+                      rate: progressRate,
+                    })}
                   </span>
                 </div>
 
                 {/* Friend's Commitments List */}
                 <div className="space-y-2 bg-secondary/35 rounded-xl p-3 border border-border">
                   <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">
-                    오늘의 할 일
+                    {t("friends.todayTasks")}
                   </span>
                   {friend.commitments.length > 0 ? (
                     friend.commitments.map((comm, idx) => (
@@ -109,7 +118,7 @@ export function FriendsView() {
                     ))
                   ) : (
                     <div className="text-[11px] text-muted-foreground py-1 flex items-center gap-1">
-                      <AlertCircle className="size-3" /> 아직 할 일을 등록하지 않았습니다.
+                      <AlertCircle className="size-3" /> {t("friends.emptyTasks")}
                     </div>
                   )}
                 </div>
@@ -125,7 +134,7 @@ export function FriendsView() {
                     onClick={() => handleReact(friend.id, friend.name, "cheer")}
                     disabled={friend.reactionsSent.cheer}
                   >
-                    {friend.reactionsSent.cheer ? "🔥 완료" : "🔥 응원"}
+                    {friend.reactionsSent.cheer ? t("friends.reaction.cheerSent") : t("friends.reaction.cheer")}
                   </Button>
                   <Button
                     size="xs"
@@ -136,7 +145,7 @@ export function FriendsView() {
                     onClick={() => handleReact(friend.id, friend.name, "congratulate")}
                     disabled={friend.reactionsSent.congratulate || progressRate < 100}
                   >
-                    {friend.reactionsSent.congratulate ? "🎉 완료" : "🎉 축하"}
+                    {friend.reactionsSent.congratulate ? t("friends.reaction.congratulateSent") : t("friends.reaction.congratulate")}
                   </Button>
                   <Button
                     size="xs"
@@ -147,7 +156,7 @@ export function FriendsView() {
                     onClick={() => handleReact(friend.id, friend.name, "remind")}
                     disabled={friend.reactionsSent.remind || progressRate === 100}
                   >
-                    {friend.reactionsSent.remind ? "⏰ 완료" : "⏰ 리마인드"}
+                    {friend.reactionsSent.remind ? t("friends.reaction.remindSent") : t("friends.reaction.remind")}
                   </Button>
                 </div>
               </CardContent>

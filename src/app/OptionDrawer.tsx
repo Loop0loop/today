@@ -1,11 +1,13 @@
 // 슬라이드 옵션 서랍. routines/spaces는 현재와 동일하게 컴포넌트 로컬 상태.
+// 루틴 시드 문구는 번역 대상(t() 사용), 사용자가 추가하는 데이터는 그대로.
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Menu, X, Check, Flame } from "lucide-react";
 import { useUiStore } from "@/store/useUiStore";
 
 interface Routine {
   id: string;
-  title: string;
+  titleKey: string;
   active: boolean;
 }
 
@@ -15,9 +17,9 @@ interface Space {
 }
 
 const INITIAL_ROUTINES: Routine[] = [
-  { id: "r1", title: "매일 아침 30분 조깅", active: true },
-  { id: "r2", title: "어휘 30개 암기", active: true },
-  { id: "r3", title: "매일 1커밋 완료", active: false },
+  { id: "r1", titleKey: "options.routines.seed.r1", active: true },
+  { id: "r2", titleKey: "options.routines.seed.r2", active: true },
+  { id: "r3", titleKey: "options.routines.seed.r3", active: false },
 ];
 
 const INITIAL_SPACES: Space[] = [
@@ -28,6 +30,7 @@ const INITIAL_SPACES: Space[] = [
 ];
 
 export function OptionDrawer() {
+  const { t } = useTranslation();
   const isOpen = useUiStore((s) => s.isOptionBarOpen);
   const setOpen = useUiStore((s) => s.setOptionBarOpen);
 
@@ -58,12 +61,12 @@ export function OptionDrawer() {
           <div className="flex items-center justify-between pb-3 border-b border-border">
             <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
               <Menu className="size-4 text-primary" />
-              옵션 설정 및 관리
+              {t("options.header")}
             </h3>
             <button
               onClick={() => setOpen(false)}
               className="p-1 rounded-full hover:bg-secondary text-muted-foreground hover:text-foreground transition-all cursor-pointer"
-              aria-label="옵션 바 닫기"
+              aria-label={t("options.closeAria")}
             >
               <X className="size-4.5" />
             </button>
@@ -72,7 +75,7 @@ export function OptionDrawer() {
           {/* Routines Settings */}
           <div className="space-y-3">
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">
-              고정 루틴 반복 관리
+              {t("options.routines.title")}
             </span>
 
             <div className="space-y-2">
@@ -83,7 +86,7 @@ export function OptionDrawer() {
                   className="flex items-center justify-between p-2.5 border border-border bg-secondary/20 rounded-xl cursor-pointer hover:bg-secondary/40 transition-colors"
                 >
                   <span className="text-xs font-semibold text-foreground">
-                    {routine.title}
+                    {t(routine.titleKey)}
                   </span>
                   <div
                     className={`size-4 rounded border flex items-center justify-center transition-all ${
@@ -102,7 +105,7 @@ export function OptionDrawer() {
           {/* Spaces Management */}
           <div className="space-y-3">
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">
-              카테고리 스페이스 관리
+              {t("options.spaces.title")}
             </span>
 
             <div className="space-y-2 max-h-40 overflow-y-auto">
@@ -123,7 +126,7 @@ export function OptionDrawer() {
                     }
                     className="text-[10px] font-bold text-rose-500 hover:text-rose-600 transition-colors"
                   >
-                    삭제
+                    {t("common.delete")}
                   </button>
                 </div>
               ))}
@@ -133,14 +136,14 @@ export function OptionDrawer() {
               <input
                 value={newSpaceName}
                 onChange={(e) => setNewSpaceName(e.target.value)}
-                placeholder="새 카테고리..."
+                placeholder={t("options.spaces.newPlaceholder")}
                 className="flex-1 h-8 text-[11px] px-2.5 rounded-lg border border-border bg-secondary/35 text-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-none"
               />
               <button
                 type="submit"
                 className="h-8 px-3 rounded-lg bg-foreground text-background text-xs font-bold hover:opacity-90 cursor-pointer"
               >
-                추가
+                {t("common.add")}
               </button>
             </form>
           </div>
@@ -150,7 +153,7 @@ export function OptionDrawer() {
         <div className="pt-4 border-t border-border flex items-center gap-2 text-muted-foreground select-none">
           <Flame className="size-4 text-orange-500 fill-current" />
           <span className="text-[10px] font-bold">
-            로컬 옵션이 실시간 적용 중입니다.
+            {t("options.banner")}
           </span>
         </div>
       </div>

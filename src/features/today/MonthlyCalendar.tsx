@@ -1,12 +1,17 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight, Clover, Check } from "lucide-react";
 import { useTaskStore } from "@/store/useTaskStore";
 import { useUiStore } from "@/store/useUiStore";
+import { useSettingsStore } from "@/store/useSettingsStore";
 import { useToday } from "@/lifecycle/hooks/useToday";
+import { formatYearMonth } from "@/lib/date";
 
 export function MonthlyCalendar() {
+  const { t } = useTranslation();
   const setSelectedDate = useUiStore((s) => s.setSelectedDate);
   const selectedDate = useUiStore((s) => s.selectedDate);
+  const language = useSettingsStore((s) => s.language);
   const systemTodayStr = useToday();
   const tasks = useTaskStore((s) => s.tasks);
 
@@ -14,11 +19,11 @@ export function MonthlyCalendar() {
   // 기반이라 형태가 달라 여기서는 원본 동작 그대로 task 기반 맵을 로컬 파생한다.
   const taskActivityMap = useMemo(() => {
     const map = new Map<string, { planned: number; completed: number }>();
-    tasks.forEach((t) => {
-      const stats = map.get(t.date) || { planned: 0, completed: 0 };
+    tasks.forEach((tk) => {
+      const stats = map.get(tk.date) || { planned: 0, completed: 0 };
       stats.planned += 1;
-      if (t.completed) stats.completed += 1;
-      map.set(t.date, stats);
+      if (tk.completed) stats.completed += 1;
+      map.set(tk.date, stats);
     });
     return map;
   }, [tasks]);
@@ -31,7 +36,7 @@ export function MonthlyCalendar() {
   const [currentYear, setCurrentYear] = useState(systemToday.year);
   const [currentMonth, setCurrentMonth] = useState(systemToday.month);
 
-  const weekdays = ["월", "화", "수", "목", "금", "토", "일"];
+  const weekdays = t("calendar.weekdays", { returnObjects: true }) as string[];
 
   const handlePrevMonth = () => {
     if (currentMonth === 1) {
@@ -90,19 +95,19 @@ export function MonthlyCalendar() {
           <button
             onClick={handlePrevMonth}
             className="p-1 rounded hover:bg-secondary text-muted-foreground hover:text-foreground transition-all cursor-pointer"
-            aria-label="이전 달"
+            aria-label={t("calendar.prevMonthAria")}
           >
             <ChevronLeft className="size-4" />
           </button>
 
           <span className="text-sm font-bold tracking-tight text-foreground select-none">
-            {currentYear}년 {currentMonth}월
+            {formatYearMonth(currentYear, currentMonth, language)}
           </span>
 
           <button
             onClick={handleNextMonth}
             className="p-1 rounded hover:bg-secondary text-muted-foreground hover:text-foreground transition-all cursor-pointer"
-            aria-label="다음 달"
+            aria-label={t("calendar.nextMonthAria")}
           >
             <ChevronRight className="size-4" />
           </button>
@@ -112,7 +117,7 @@ export function MonthlyCalendar() {
           onClick={handleGoToToday}
           className="text-[10px] font-bold px-2 py-1 rounded border border-border text-muted-foreground hover:text-foreground hover:border-zinc-500 transition-all cursor-pointer bg-secondary/30"
         >
-          오늘
+          {t("calendar.goToToday")}
         </button>
       </div>
 

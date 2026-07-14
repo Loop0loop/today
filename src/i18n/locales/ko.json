@@ -1,0 +1,182 @@
+{
+  "common": {
+    "cancel": "취소",
+    "add": "추가",
+    "delete": "삭제",
+    "close": "닫기",
+    "today": "오늘",
+    "completed": "완료"
+  },
+  "nav": {
+    "today": "Today",
+    "friends": "친구",
+    "history": "기록",
+    "diary": "일기",
+    "profile": "설정",
+    "ariaLabel": "하단 네비게이션"
+  },
+  "header": {
+    "title": {
+      "today": "오늘을 가볍게 시작해요",
+      "friends": "함께 행동을 유도해요",
+      "history": "우리의 발자취",
+      "diary": "오늘의 회고",
+      "profile": "설정 및 프로필"
+    },
+    "streakSuffix": "일째",
+    "openOptions": "옵션 메뉴 열기"
+  },
+  "today": {
+    "profile": {
+      "initial": "엄",
+      "name": "엄세훈",
+      "subtitle": "Today First",
+      "diaryButtonTitle": "일기 탭으로 이동하여 작성",
+      "diaryButtonAria": "일기 작성 화면 이동"
+    },
+    "tasksHeader": "{{date}} 할 일",
+    "generalAddTitle": "일반 할 일 추가",
+    "generalAddAria": "일반 할 일 추가",
+    "rollover": {
+      "count": "어제 미완료 할 일 {{count}}개",
+      "hide": "숨기기",
+      "resolve": "정리하기",
+      "today": "오늘",
+      "someday": "언젠가",
+      "abandon": "포기"
+    },
+    "categoryAddTitle": "{{name}} 카테고리에 할 일 추가",
+    "deleteAria": "할 일 삭제",
+    "generalSection": "일반 할 일",
+    "emptyState": "선택된 날짜의 할 일이 없습니다.",
+    "modal": {
+      "title": "할 일 추가 ({{context}})",
+      "contextCategory": "{{tag}} 카테고리",
+      "nameLabel": "할 일 이름",
+      "placeholderCategory": "{{tag}} 할 일 입력...",
+      "placeholderDefault": "무엇을 해야 하나요?"
+    }
+  },
+  "calendar": {
+    "weekdays": ["월", "화", "수", "목", "금", "토", "일"],
+    "prevMonthAria": "이전 달",
+    "nextMonthAria": "다음 달",
+    "goToToday": "오늘",
+    "monthTitle": "{{year}}년 {{month}}월",
+    "monthDayFormat": "{{month}}월 {{day}}일"
+  },
+  "friends": {
+    "header": "책임 그룹 피드",
+    "subheader": "서로의 목표를 응원하고 콕 찔러서 행동을 유도해보세요. (2~5명 제한)",
+    "streakSuffix": "일째",
+    "consistencyLabel": "일관성",
+    "progressFormat": "{{completed}} / {{total}} 완료 ({{rate}}%)",
+    "todayTasks": "오늘의 할 일",
+    "emptyTasks": "아직 할 일을 등록하지 않았습니다.",
+    "reaction": {
+      "cheer": "🔥 응원",
+      "cheerSent": "🔥 완료",
+      "congratulate": "🎉 축하",
+      "congratulateSent": "🎉 완료",
+      "remind": "⏰ 리마인드",
+      "remindSent": "⏰ 완료",
+      "toastCheer": "🔥 응원하기",
+      "toastCongratulate": "🎉 축하하기",
+      "toastRemind": "⏰ 콕 찌르기",
+      "toast": "{{name}}님에게 {{type}}를 보냈습니다!"
+    }
+  },
+  "history": {
+    "header": "성과 및 리포트",
+    "subheader": "완료 개수가 아닙니다. 약속을 지키는 견고함 및 장애 요인을 분석합니다.",
+    "stats": {
+      "currentStreak": "현재 완료 스트릭",
+      "streakValue": "{{count}}일 연속",
+      "weeklyConsistency": "이번 주 완료 일관성",
+      "activeDays": "기록된 활동일수",
+      "activeDaysValue": "{{count}}일"
+    },
+    "heatmap": {
+      "title": "연간 완료 이행률",
+      "noPlan": "계획 없음",
+      "rangeStart": "364일 전",
+      "rangeEnd": "오늘",
+      "legendLow": "낮음",
+      "legendHigh": "높음"
+    },
+    "failPatternTitle": "자주 발생하는 핵심 장애 요인",
+    "failPatterns": {
+      "overplanning": "과도한 계획 수립",
+      "condition": "컨디션 조절 실패",
+      "meeting": "예상치 못한 미팅",
+      "other": "기타 사유"
+    }
+  },
+  "diary": {
+    "header": "오늘 한 줄 회고",
+    "subheader": "성공이나 실패 모두 좋은 행동입니다. 오늘 하루는 어땠나요?",
+    "textareaAria": "오늘 한 줄 회고 입력",
+    "placeholder": "오늘 끝낸 약속의 소감, 혹은 미룬 약속의 이유를 가볍게 적어보세요...",
+    "submit": "등록하기",
+    "timelineHeader": "회고 타임라인 ({{count}})"
+  },
+  "profile": {
+    "header": "내 설정 및 정보",
+    "subheader": "나만의 속도로 약속을 이어갈 수 있도록 휴식 요일 및 알림을 조절합니다.",
+    "profileInitial": "민",
+    "profileName": "민 (프로토타입 계정)",
+    "badgeLocalMode": "로컬 모드 동작 중",
+    "theme": {
+      "title": "화면 테마 설정",
+      "description": "앱의 화면 색상 테마를 선택합니다. 시스템 선택 시 OS 설정에 맞춥니다.",
+      "light": "라이트",
+      "dark": "다크",
+      "system": "시스템"
+    },
+    "language": {
+      "title": "언어 설정",
+      "description": "앱의 표시 언어를 선택합니다. 변경 사항은 즉시 적용됩니다.",
+      "ko": "한국어",
+      "ja": "日本語",
+      "en": "English"
+    },
+    "restDays": {
+      "title": "휴식 요일 지정",
+      "description": "휴식 요일로 지정된 날에는 오늘의 약속을 등록하지 않아도 스트릭이 끊기지 않습니다.",
+      "weekdays": ["일", "월", "화", "수", "목", "금", "토"]
+    },
+    "remind": {
+      "title": "리마인드 알림 조절",
+      "countLabel": "하루 허용 횟수",
+      "countOptions": {
+        "1": "하루 최대 1회",
+        "2": "하루 최대 2회",
+        "3": "하루 최대 3회",
+        "5": "하루 최대 5회"
+      },
+      "timeLabel": "알림 비허용 시간대",
+      "timeOptions": {
+        "09:00 - 21:00": "21:00 ~ 09:00 (밤/새벽 제한)",
+        "09:00 - 18:00": "18:00 ~ 09:00 (저녁 제한)",
+        "24hours": "제한 없음 (24시간 허용)"
+      }
+    }
+  },
+  "options": {
+    "header": "옵션 설정 및 관리",
+    "closeAria": "옵션 바 닫기",
+    "routines": {
+      "title": "고정 루틴 반복 관리",
+      "seed": {
+        "r1": "매일 아침 30분 조깅",
+        "r2": "어휘 30개 암기",
+        "r3": "매일 1커밋 완료"
+      }
+    },
+    "spaces": {
+      "title": "카테고리 스페이스 관리",
+      "newPlaceholder": "새 카테고리..."
+    },
+    "banner": "로컬 옵션이 실시간 적용 중입니다."
+  }
+}
